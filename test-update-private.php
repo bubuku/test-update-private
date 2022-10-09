@@ -10,7 +10,7 @@
  * Plugin Name:       Test update private
  * Plugin URI:        https://fgrweb.es/
  * Description:       Plugin demo para WordCamp Pontevedra 2022.
- * Version:           1.0.2
+ * Version:           1.0.3
  * Author:            Fernando Garcia Rebolledo
  * Author URI:        https://fgrweb.es
  * License:           GPL-2.0+
