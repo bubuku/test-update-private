@@ -32,8 +32,8 @@ function run_pontewordcamp() {
 	if ( is_admin() ) {
 		include_once plugin_dir_path( __FILE__ ) . '/class-pontewordcamp-updater.php';
 		$config  = array(
-			'github_uri' => 'https://api.github.com/repos/fgrweb/pontewordcamp/releases',
-			'token'      => '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',
+			'github_uri' => 'https://api.github.com/repos/bubuku/test-update-private/releases',
+			'token'      => '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',
 		);
 		$updater = new Ponte_WordCamp_Updater( $config, __FILE__ );
 		$updater->fgr_check_update();
