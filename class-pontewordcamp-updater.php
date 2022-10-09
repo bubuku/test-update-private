@@ -65,6 +65,7 @@ class Ponte_WordCamp_Updater {
 	 * @return void
 	 */
 	public function fgr_check_update() {
+		// info: https://make.wordpress.org/core/2020/07/30/recommended-usage-of-the-updates-api-to-support-the-auto-updates-ui-for-plugins-and-themes-in-wordpress-5-5/
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'fgr_check_transient' ), 10, 1 );
 		add_filter( 'http_request_args', array( $this, 'fgr_set_header_token' ), 10, 2 );
 		add_filter( 'plugins_api', array( $this, 'fgr_plugin_popup' ), 10, 3 );
