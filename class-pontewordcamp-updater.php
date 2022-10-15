@@ -85,7 +85,7 @@ class Ponte_WordCamp_Updater {
 		$this->fgr_github_repository_info();
 		$this->fgr_get_plugin_data();
 		// Did WordPress checked updates?
-		if ( $transient->checked[ $this->plugin_basename ] ) {
+		if ( $transient->checked[ $this->plugin_basename ] && is_array($this->github_response) ) {
 			// Compare versions.
 			if ( version_compare( $this->github_response['tag_name'], $transient->checked[ $this->plugin_basename ], 'gt' ) ) {
 				// New version available.
@@ -130,6 +130,7 @@ class Ponte_WordCamp_Updater {
 		}
 		// Decode the response.
 		$response = json_decode( wp_remote_retrieve_body( $request ), true );
+
 		if ( is_array( $response ) ) {
 			// Get the first item.
 			$response = current( $response );
