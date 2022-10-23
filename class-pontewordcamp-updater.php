@@ -130,6 +130,18 @@ class Ponte_WordCamp_Updater {
 		}
 		// Decode the response.
 		$response = json_decode( wp_remote_retrieve_body( $request ), true );
+		$response_code = wp_remote_retrieve_response_code( $request);
+
+		if ( 200 !== $response_code ) {
+			// https://developer.wordpress.org/reference/hooks/in_plugin_update_message-file/
+			// https://wisdomplugin.com/add-inline-plugin-update-message/
+
+			//$message = $response['message'];
+			//$documentation_url = $response['documentation_url'];
+			//echo '<p>Error: '. $message .', info: '. $documentation_url .'</p>';
+			add_action( 'after_plugin_row_test-update-private/test-update-private.php', array( $this, 'fgr_message_error'), 10, 3 );
+			return;
+		}
 
 		if ( is_array( $response ) ) {
 			// Get the first item.
@@ -228,5 +240,22 @@ class Ponte_WordCamp_Updater {
 			activate_plugin( $this->plugin_basename );
 		}
 		return $result;
+	}
+
+	public function fgr_message_error($plugin_file, $plugin_data, $status) {
+
+		$wp_list_table = _get_list_table( 'WP_Plugins_List_Table' );
+		$plugin_slug = dirname(plugin_basename( __FILE__ ));
+			?>
+
+			<tr class="plugin-update-tr <?php echo $status;?>" id="<?php echo $plugin_slug; ?>-update" data-slug="<?php echo $plugin_slug; ?>" data-plugin="<?php echo $plugin_file ?>">
+				<td colspan="<?php echo $wp_list_table->get_column_count(); ?>" class="update-message inline notice notice-error notice-alt">
+						<p>
+						Usted está utilizando una versión de WPML no registrada y no está recibiendo actualizaciones de compatibilidad y seguridad. <a href="https://dev-wp.cobee.io/wp-admin/plugin-install.php?tab=commercial&amp;repository=wpml&amp;action=register">Registrar ahora</a>
+						</p>
+				</td>
+			</tr>
+
+		<?php
 	}
 }
